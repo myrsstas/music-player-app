@@ -1,4 +1,4 @@
-package io.github.myrsstas.musicplayer.controller;
+package io.github.myrsstas.musicplayer.controllers;
 
 import java.io.File;
 import java.util.List;
