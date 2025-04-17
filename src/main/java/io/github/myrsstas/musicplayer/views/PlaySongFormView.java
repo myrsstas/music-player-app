@@ -1,5 +1,7 @@
 package io.github.myrsstas.musicplayer.views;
 
+import com.intellij.uiDesigner.core.GridLayoutManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -22,7 +24,7 @@ public class PlaySongFormView {
      */
     private void $$$setupUI$$$() {
         playSongPanel = new JPanel();
-        playSongPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        playSongPanel.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
     }
 
     /**
@@ -31,4 +33,5 @@ public class PlaySongFormView {
     public JComponent $$$getRootComponent$$$() {
         return playSongPanel;
     }
+
 }
