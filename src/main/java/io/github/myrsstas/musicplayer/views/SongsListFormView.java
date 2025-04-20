@@ -3,26 +3,44 @@ package io.github.myrsstas.musicplayer.views;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import io.github.myrsstas.musicplayer.models.Song;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class SongsListFormView {
+public class SongsListFormView extends JFrame {
     private JPanel songListPanel;
     private JButton addFolderButton;
     private JList songList;
     private JScrollPane songListScrollPanel;
-    private JLabel folderName;
+    private String folderPath;
+    private ArrayList<Song> songs;
+    private DefaultListModel listSongsModel; //List Model that we need for JList
 
 
     public SongsListFormView() {
-        addFolderButton.addActionListener(e -> selectFolder());
+        songs = new ArrayList<Song>();
+        listSongsModel = new DefaultListModel();
+        songList.setModel(listSongsModel);
 
+
+        addFolderButton.addActionListener(e -> folderPath = selectFolder());
+
+        refreshJListWithSongs(folderPath);
+
+        songList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+            }
+        });
     }
 
     static void setUpListFormView() {
@@ -30,9 +48,10 @@ public class SongsListFormView {
         songListFrame.setContentPane(new SongsListFormView().songListPanel);
         songListFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         songListFrame.pack();
-//        JLabel folderNameLabel = new JLabel("Folder Name");
 
         songListFrame.setVisible(true);
+
+
     }
 
     private String selectFolder() {
@@ -40,11 +59,18 @@ public class SongsListFormView {
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int responce = fileChooser.showOpenDialog(null);
         if (responce == JFileChooser.APPROVE_OPTION) {
-            folderName.setText(fileChooser.getSelectedFile().getAbsolutePath());
+//            folderName.setText(fileChooser.getSelectedFile().getAbsolutePath());
             return fileChooser.getSelectedFile().getAbsolutePath();
         }
-        folderName.setText("");
         return null;
+    }
+
+    private void refreshJListWithSongs(String folderPath) {
+        listSongsModel.removeAllElements();
+        for (Song song : songs) {
+            System.out.println("adding song to list "+song.getTitle());
+            listSongsModel.addElement(song);
+        }
     }
 
     public static void main(String[] args) {
@@ -79,9 +105,6 @@ public class SongsListFormView {
         songListPanel.add(songListScrollPanel, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         songList = new JList();
         songListScrollPanel.setViewportView(songList);
-        folderName = new JLabel();
-        folderName.setText("Label");
-        songListPanel.add(folderName, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer3 = new Spacer();
         songListPanel.add(spacer3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final Spacer spacer4 = new Spacer();

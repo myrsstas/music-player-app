@@ -5,7 +5,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import javax.swing.*;
 import java.awt.*;
 
-public class PlaySongFormView {
+public class PlaySongFormView extends JFrame {
     private JPanel playSongPanel;
 
     {
