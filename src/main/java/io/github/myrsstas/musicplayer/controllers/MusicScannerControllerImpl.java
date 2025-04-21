@@ -40,7 +40,7 @@ public class MusicScannerControllerImpl implements MusicScannerController {
 
             }
             musicFiles.add(file);
-            System.out.println(file.getName());
+//            System.out.println(file.getName());
 
 //            if (fileName.endsWith(".mp3")||fileName.endsWith(".flac") || fileName.endsWith(".wav")) {
 //                musicFiles.add(file);
