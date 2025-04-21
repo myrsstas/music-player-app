@@ -107,9 +107,6 @@ public class SongsListFormView extends JFrame {
         return null;
     }
 
-    private void refreshJListWithSongs(String folderPath) {
-        songsModel.removeAllElements();
-    }
 
     public static void main(String[] args) {
         setUpListFormView();
