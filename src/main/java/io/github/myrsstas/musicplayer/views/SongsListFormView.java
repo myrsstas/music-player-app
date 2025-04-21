@@ -3,44 +3,59 @@ package io.github.myrsstas.musicplayer.views;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import io.github.myrsstas.musicplayer.models.Song;
+import io.github.myrsstas.musicplayer.controllers.FileScannerController;
+import io.github.myrsstas.musicplayer.controllers.FileScannerControllerImpl;
+import io.github.myrsstas.musicplayer.controllers.MusicScannerController;
+import io.github.myrsstas.musicplayer.controllers.MusicScannerControllerImpl;
+import io.github.myrsstas.musicplayer.models.SongModel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SongsListFormView extends JFrame {
     private JPanel songListPanel;
     private JButton addFolderButton;
-    private JList songList;
+    private JList songJList;
     private JScrollPane songListScrollPanel;
     private String folderPath;
-    private ArrayList<Song> songs;
-    private DefaultListModel listSongsModel; //List Model that we need for JList
+    private List songs;
+    private List fileList;
+
+    private DefaultListModel songsModel; //List Model that we need for JList
+
+    private FileScannerController fileScannerController;
+    private MusicScannerController musicScannerController;
 
 
     public SongsListFormView() {
-        songs = new ArrayList<Song>();
-        listSongsModel = new DefaultListModel();
-        songList.setModel(listSongsModel);
-
 
         addFolderButton.addActionListener(e -> folderPath = selectFolder());
 
-        refreshJListWithSongs(folderPath);
+        loadSongsToJList();
 
-        songList.addListSelectionListener(new ListSelectionListener() {
+        songJList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
             }
         });
+    }
+
+    private void loadSongsToJList() {
+        FileScannerController fileScannerController = new FileScannerControllerImpl();
+        MusicScannerController musicScannerController = new MusicScannerControllerImpl(fileScannerController);
+
+        fileList = musicScannerController.getMusicFilesInDirectoryPath(folderPath);
+        songs = musicScannerController.convertFilesToSongs(fileList);
+
+        songsModel = new DefaultListModel();
+//        for (SongModel song : songs) {
+//        }
     }
 
     static void setUpListFormView() {
@@ -66,11 +81,7 @@ public class SongsListFormView extends JFrame {
     }
 
     private void refreshJListWithSongs(String folderPath) {
-        listSongsModel.removeAllElements();
-        for (Song song : songs) {
-            System.out.println("adding song to list "+song.getTitle());
-            listSongsModel.addElement(song);
-        }
+        songsModel.removeAllElements();
     }
 
     public static void main(String[] args) {
@@ -103,8 +114,8 @@ public class SongsListFormView extends JFrame {
         songListPanel.add(addFolderButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         songListScrollPanel = new JScrollPane();
         songListPanel.add(songListScrollPanel, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        songList = new JList();
-        songListScrollPanel.setViewportView(songList);
+        songJList = new JList();
+        songListScrollPanel.setViewportView(songJList);
         final Spacer spacer3 = new Spacer();
         songListPanel.add(spacer3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final Spacer spacer4 = new Spacer();

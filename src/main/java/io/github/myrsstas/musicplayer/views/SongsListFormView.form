@@ -33,7 +33,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="375e0" class="javax.swing.JList" binding="songList">
+          <component id="375e0" class="javax.swing.JList" binding="songJList">
             <constraints/>
             <properties/>
           </component>
