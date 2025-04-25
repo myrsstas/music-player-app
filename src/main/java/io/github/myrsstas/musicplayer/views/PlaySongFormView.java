@@ -7,6 +7,8 @@ import io.github.myrsstas.musicplayer.models.SongModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PlaySongFormView extends JFrame {
     private JPanel playSongPanel;
@@ -23,6 +25,18 @@ public class PlaySongFormView extends JFrame {
     public PlaySongFormView(SongModel songModel) {
         setUpPlayFormView();
         selectedSongTitle.setText(songModel.getTitle());
+
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                backToSongList();
+            }
+        });
+    }
+
+    private void backToSongList() {
+        this.setVisible(false);
     }
 
 
