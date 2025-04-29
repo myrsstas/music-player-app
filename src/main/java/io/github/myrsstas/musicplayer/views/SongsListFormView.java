@@ -40,7 +40,7 @@ public class SongsListFormView extends JFrame {
 
 
     public SongsListFormView() {
-        
+
         FileScannerController fileScannerController = new FileScannerControllerImpl();
         MusicScannerController musicScannerController = new MusicScannerControllerImpl(fileScannerController);
 
@@ -75,9 +75,8 @@ public class SongsListFormView extends JFrame {
     }
 
     private void openNextForm(SongModel chosenSong) {
-        new PlaySongFormView(chosenSong);
         this.setVisible(false);
-
+        new PlaySongFormView(chosenSong, this).setUpPlayFormView();
     }
 
     private void loadSongsToJList(List<SongModel> songs) {
@@ -103,6 +102,10 @@ public class SongsListFormView extends JFrame {
         songListFrame.setLocationRelativeTo(null);
         songListFrame.pack();
         songListFrame.setVisible(true);
+    }
+
+    public void showAgain() {
+        setVisible(true);
     }
 
     private String selectFolder() {

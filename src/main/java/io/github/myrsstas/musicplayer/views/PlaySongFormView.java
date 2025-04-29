@@ -22,7 +22,7 @@ public class PlaySongFormView extends JFrame {
     private SongModel chosenSongModel;
 
 
-    public PlaySongFormView(SongModel songModel) {
+    public PlaySongFormView(SongModel songModel, SongsListFormView songsListFormView) {
         setUpPlayFormView();
         selectedSongTitle.setText(songModel.getTitle());
 
@@ -30,17 +30,14 @@ public class PlaySongFormView extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                backToSongList();
+                setVisible(false);
+                songsListFormView.showAgain();
             }
         });
     }
 
-    private void backToSongList() {
-        this.setVisible(false);
-    }
 
-
-    private void setUpPlayFormView() {
+    public void setUpPlayFormView() {
         setContentPane(playSongPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle(selectedSongTitle.getText());
@@ -105,5 +102,6 @@ public class PlaySongFormView extends JFrame {
     public JComponent $$$getRootComponent$$$() {
         return playSongPanel;
     }
+
 
 }
