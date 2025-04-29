@@ -40,8 +40,6 @@ public class SongsListFormView extends JFrame {
 
 
     public SongsListFormView() {
-
-        setUpListFormView();
         
         FileScannerController fileScannerController = new FileScannerControllerImpl();
         MusicScannerController musicScannerController = new MusicScannerControllerImpl(fileScannerController);
@@ -120,7 +118,7 @@ public class SongsListFormView extends JFrame {
 
 
     public static void main(String[] args) {
-        SongsListFormView songsListFormView = new SongsListFormView();
+        setUpListFormView();
     }
 
     {
