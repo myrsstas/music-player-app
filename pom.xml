@@ -14,6 +14,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
 
         <dependency>
@@ -22,11 +29,10 @@
             <version>7.0.3</version>
         </dependency>
 
-
         <dependency>
-            <groupId>javazoom</groupId>
+            <groupId>com.github.umjammer</groupId>
             <artifactId>jlayer</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.3</version>
         </dependency>
 
     </dependencies>
