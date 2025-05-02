@@ -15,7 +15,8 @@ public class MusicScannerControllerImpl implements MusicScannerController {
 
     public MusicScannerControllerImpl(FileScannerController fileScannerController) {
         this.fileScannerController = fileScannerController;
-        this.musicExtensions = Arrays.asList("mp3", "aiff", "wav");
+        this.musicExtensions = Arrays.asList("mp3", "aac", "wav");
+//        this.musicExtensions = Arrays.asList("wav");
     }
 
     @Override
