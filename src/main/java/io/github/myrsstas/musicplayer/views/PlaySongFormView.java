@@ -3,6 +3,7 @@ package io.github.myrsstas.musicplayer.views;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import io.github.myrsstas.musicplayer.controllers.MusicPlayerControllerImpl;
 import io.github.myrsstas.musicplayer.models.SongModel;
 
 import javax.swing.*;
@@ -21,11 +22,11 @@ public class PlaySongFormView extends JFrame {
 
     private SongModel chosenSongModel;
 
+    private MusicPlayerControllerImpl musicPlayer = new MusicPlayerControllerImpl();
 
     public PlaySongFormView(SongModel songModel, SongsListFormView songsListFormView) {
         setUpPlayFormView();
         selectedSongTitle.setText(songModel.getTitle());
-
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -34,6 +35,17 @@ public class PlaySongFormView extends JFrame {
                 songsListFormView.showAgain();
             }
         });
+
+
+        playButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                musicPlayer.playSong(songModel.getPath());
+                playButton.setEnabled(false);
+            }
+        });
+
+
     }
 
 
