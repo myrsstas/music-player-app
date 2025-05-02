@@ -15,7 +15,7 @@ public class MusicScannerControllerImpl implements MusicScannerController {
 
     public MusicScannerControllerImpl(FileScannerController fileScannerController) {
         this.fileScannerController = fileScannerController;
-        this.musicExtensions = Arrays.asList("mp3", "flac", "wav");
+        this.musicExtensions = Arrays.asList("mp3", "aac", "wav");
     }
 
     @Override
@@ -57,7 +57,8 @@ public class MusicScannerControllerImpl implements MusicScannerController {
         List<SongModel> songs = new ArrayList<>();
         for (File file : files) {
             String title = file.getName();
-            String path = file.getAbsolutePath();
+
+            String path = file.toURI().toString();
 
             songs.add(new SongModel(title, path));
         }
