@@ -59,7 +59,7 @@ public class MusicScannerControllerImpl implements MusicScannerController {
         for (File file : files) {
             String title = file.getName();
 
-            String path = file.toURI().toString();
+            String path = file.getAbsolutePath();
 
             songs.add(new SongModel(title, path));
         }

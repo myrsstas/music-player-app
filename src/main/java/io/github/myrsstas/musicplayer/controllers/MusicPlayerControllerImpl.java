@@ -1,8 +1,12 @@
 package io.github.myrsstas.musicplayer.controllers;
 
 
+import javazoom.jl.player.Player;
+
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class MusicPlayerControllerImpl implements MusicPlayerController {
@@ -10,12 +14,11 @@ public class MusicPlayerControllerImpl implements MusicPlayerController {
     public void playSong(String songPath) {
         File file = new File(songPath);
         try{
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-            Thread.sleep(clip.getMicrosecondLength()/1000);
-        } catch (UnsupportedAudioFileException | IOException |LineUnavailableException | InterruptedException e) {
+            FileInputStream fis = new FileInputStream(songPath);
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            Player playFile = new Player(bis);
+            playFile.play();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
